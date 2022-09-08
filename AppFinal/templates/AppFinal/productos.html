@@ -1,0 +1,61 @@
+
+    {% extends "AppFinal/padre.html" %}
+    
+    {% block Contenido %}
+    <br> <br> <br> 
+
+    <div class="d-flex" style="margin-bottom:5rem; justify-content: space-evenly;">
+
+    </div>
+
+    {% if request.user.is_authenticated and  request.user.rol == owner %}
+        <a href="/nuevoProducto" class="btn btn-primary">Nuevo Producto</a>
+                  
+    {% endif %}
+
+    {% if messages %}
+        <div class="alert alert-warning" alert-{{ message.tags }}" role="alert">
+        {% for message in messages  %}
+            {{message|safe}} - <a href="{% url 'WishList' %}" class="alert-link">Your Wishlist</a>.
+        {% endfor %}
+        </div>
+    {% endif %}
+    
+    {% for producto in object_list %}
+     
+        {% if producto.stock == True %}
+        
+    
+            <div class="card" style="width: 18rem">
+                    <img src="{{producto.image.url}}" class="card-img-top" width: 230px height: 230px >
+
+                <div class="card-body">
+                <h5 class="card-title">{{producto.name}}</h5>
+                <p class="card-text">${{producto.price}}</p>
+
+                <a href="/detalleproductos/{{producto.id}}/" class="btn btn-primary">Detalles</a>
+                  
+
+                {% if request.user.is_authenticated %}
+                    
+                    {% if request.user.client.rol == 'owner' %}
+                        <a href="/eliminarProducto/{{producto.id}}/" class="btn btn-primary">Eliminar</a>
+                        <a href="/actualizarProducto/{{producto.id}}/" class="btn btn-primary">Actualizar</a>
+                      
+                  
+                    {% else %}
+                        <a href="/compra" class="btn btn-primary">Comprar</a>
+                        <a href="/addWishlist/{{producto.id}}/" class="btn btn-light fw500" role="button" aria-disabled="true">Add to Wish List</a>
+                    {% endif %}
+
+                {% else %}
+                    <a href="/comprafallida" class="btn btn-primary">Comprar</a>
+                
+                {% endif %}
+                
+                </div>
+            </div>
+    
+        {% endif %}
+    {% endfor %}
+    {% endblock %}

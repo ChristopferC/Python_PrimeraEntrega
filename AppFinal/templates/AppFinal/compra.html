@@ -1,0 +1,21 @@
+
+    {% extends "AppFinal/padre.html" %}
+    {% block Contenido %}
+    <div class="d-flex" style="margin-bottom:5rem; justify-content: space-evenly;">
+
+    </div>
+    <section class="py-5">
+        <div class="container my-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <h2>Compra Realizada con exito!</h2>
+                    <p class="lead">Muchas gracias!
+                        Su compra se ha procesado con exito, revise su mail para completar el pago. </p>
+                        <li class="list-inline-item"><a href="{% url 'Index' %}">Volver al inicio</a></li>
+                        <li class="list-inline-item"><a href="{% url 'Productos' %}">Comprar nuevamente</a></li>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% endblock %}
